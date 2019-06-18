@@ -1,0 +1,21 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <!-- Create new table: shoplocator_shop_entity -->
+    <table name="shoplocator_shop_entity" resource="default" engine="innodb"
+           comment="Experius Shop Locator Shop Entity Table">
+
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity Id"/>
+        <column xsi:type="varchar" name="name" length="255" nullable="true" comment="Name"/>
+        <column xsi:type="decimal" name="latitude" precision="10" scale="8" nullable="true" comment="Latitude"/>
+        <column xsi:type="decimal" name="longitude" precision="11" scale="8" nullable="true" comment="Longitude"/>
+        <column xsi:type="blob" name="shop_hours" nullable="true" comment="Shops opening and closing hours data"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+    </table>
+
+</schema>

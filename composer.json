@@ -1,0 +1,23 @@
+{
+    "name": "experius/module-shoplocator",
+    "description": "",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "email": "peter.keijsers@experius.nl",
+            "name": "Peter Keijsers"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Experius\\ShopLocator\\": ""
+        }
+    }
+}
