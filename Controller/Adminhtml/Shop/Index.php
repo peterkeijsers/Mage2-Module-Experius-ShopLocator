@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Experius\ShopLocator\Controller\Index;
+namespace Experius\ShopLocator\Controller\Adminhtml\Shop;
 
-class Index extends \Magento\Framework\App\Action\Action
+class Index extends \Magento\Backend\App\Action
 {
 
     protected $resultPageFactory;
@@ -11,11 +11,11 @@ class Index extends \Magento\Framework\App\Action\Action
     /**
      * Constructor
      *
-     * @param \Magento\Framework\App\Action\Context  $context
+     * @param \Magento\Backend\App\Action\Context  $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      */
     public function __construct(
-        \Magento\Framework\App\Action\Context $context,
+        \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory
     ) {
         $this->resultPageFactory = $resultPageFactory;
