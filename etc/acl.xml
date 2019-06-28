@@ -4,7 +4,8 @@
         <resources>
             <resource id="Magento_Backend::admin">
                 <resource id="Experius_ShopLocator::shoplocator" sortOrder="10" title="Shop locator">
-                    <resource id="Experius_ShopLocator::index_index" sortOrder="10" title="index index"/>
+                    <resource id="Experius_ShopLocator::index" sortOrder="10" title="index index"/>
+                    <resource id="Experius_ShopLocator::shop_listing" sortOrder="10" title="Shop listing"/>
                 </resource>
             </resource>
         </resources>

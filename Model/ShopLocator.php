@@ -2,17 +2,11 @@
 
 namespace Experius\ShopLocator\Model;
 
+use Experius\ShopLocator\Api\ShopLocatorInterface;
 use Experius\ShopLocator\Model\ResourceModel\ShopLocator as ResourceModel;
 
-class ShopLocator extends \Magento\Framework\Model\AbstractExtensibleModel
+class ShopLocator extends \Magento\Framework\Model\AbstractExtensibleModel implements ShopLocatorInterface
 {
-    const ENTITY_ID = 'entity_id';
-    const NAME = 'name';
-    const LATITUDE = 'latitude';
-    const LONGITUDE = 'longitude';
-    const SHOP_HOURS = 'shop_hours';
-
-
     protected function _construct()
     {
         $this->_init(ResourceModel::class);

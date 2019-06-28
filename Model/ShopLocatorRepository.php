@@ -64,8 +64,11 @@ class ShopLocatorRepository
         $this->collectionProcessor = $collectionProcessor;
     }
 
+
     /**
-     * {@inheritdoc}
+     * @param int $shopLocatorId
+     * @return \Experius\ShopLocator\Model\ShopLocator
+     * @throws NoSuchEntityException
      */
     public function getById($shopLocatorId)
     {
