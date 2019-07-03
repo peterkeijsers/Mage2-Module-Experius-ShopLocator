@@ -5,6 +5,7 @@ namespace Experius\ShopLocator\Model\ResourceModel\ShopLocator;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
+    protected $_idFieldName = 'entity_id';
 
     /**
      * Define resource model

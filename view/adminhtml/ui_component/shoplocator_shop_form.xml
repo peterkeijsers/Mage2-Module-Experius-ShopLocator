@@ -30,10 +30,10 @@
         <argument name="submitUrl" xsi:type="string">shoplocator/shop/save</argument>
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">
-                Experius\ShopLocator\Ui\DataProvider\ShopLocatorShopListingDataProvider
+                Experius\ShopLocator\Ui\DataProvider\Shop\FormDataProvider
             </argument>
             <argument name="name" xsi:type="string">shoplocator_shop_form_data_source</argument>
-            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">entity_id</argument>
             <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
         </argument>
     </dataSource>

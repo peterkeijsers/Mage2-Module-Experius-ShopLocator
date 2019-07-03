@@ -1,10 +1,10 @@
 <?php
 
-namespace Experius\ShopLocator\Ui\DataProvider;
+namespace Experius\ShopLocator\Ui\DataProvider\Shop;
 
 use Experius\ShopLocator\Model\ResourceModel\ShopLocator\CollectionFactory;
 
-class ShopLocatorShopListingDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
+class ListingDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
     /**
      * @var CollectionFactory

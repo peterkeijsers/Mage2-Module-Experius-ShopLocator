@@ -7,6 +7,8 @@
                     <resource id="Experius_ShopLocator::index" sortOrder="10" title="index index"/>
                     <resource id="Experius_ShopLocator::shop_listing" sortOrder="10" title="Shop listing"/>
                     <resource id="Experius_ShopLocator::shop_edit" sortOrder="10" title="Shop form"/>
+                    <resource id="Experius_ShopLocator::shop_save" sortOrder="10" title="Shop save"/>
+                    <resource id="Experius_ShopLocator::shop_delete" sortOrder="10" title="Shop delete"/>
                 </resource>
             </resource>
         </resources>

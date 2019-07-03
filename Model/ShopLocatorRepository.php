@@ -3,6 +3,7 @@
 
 namespace Experius\ShopLocator\Model;
 
+use Experius\ShopLocator\Api\ShopLocatorRepositoryInterface;
 use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\SearchResultsInterfaceFactory;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
@@ -14,7 +15,7 @@ use Magento\Store\Model\StoreManagerInterface;
 use Experius\ShopLocator\Model\ResourceModel\ShopLocator as ResourceShopLocator;
 use Experius\ShopLocator\Model\ResourceModel\ShopLocator\CollectionFactory as ShopLocatorCollectionFactory;
 
-class ShopLocatorRepository
+class ShopLocatorRepository implements ShopLocatorRepositoryInterface
 {
     protected $resource;
 
@@ -63,7 +64,6 @@ class ShopLocatorRepository
         $this->storeManager = $storeManager;
         $this->collectionProcessor = $collectionProcessor;
     }
-
 
     /**
      * @param int $shopLocatorId

@@ -2,7 +2,7 @@
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="content">
-            <block class="Experius\ShopLocator\Block\Index\Index" name="index.index" template="Experius_ShopLocator::index/index.phtml"/>
+            <block class="Experius\ShopLocator\Block\Shop\Index" name="shoplocator.shop.index" template="Experius_ShopLocator::index/index.phtml"/>
         </referenceContainer>
     </body>
 </page>

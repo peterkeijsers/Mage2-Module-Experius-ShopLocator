@@ -22,10 +22,10 @@
         <argument name="aclResource" xsi:type="string">Experius_ShopLocator::shop_listing</argument>
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">
-                Experius\ShopLocator\Ui\DataProvider\ShopLocatorShopListingDataProvider
+                Experius\ShopLocator\Ui\DataProvider\Shop\ListingDataProvider
             </argument>
             <argument name="name" xsi:type="string">shoplocator_shop_listing_data_source</argument>
-            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">entity_id</argument>
             <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -56,7 +56,19 @@
         <columnsControls name="columns_controls"/>
         <filters name="listing_filters"/>
         <paging name="listing_paging"/>
-        <massaction name="listing_massaction"/>
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="shoplocator/shop/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
     </listingToolbar>
     <columns name="shoplocator_shop_columns">
         <selectionsColumn name="ids">
@@ -106,11 +118,9 @@
                 </item>
             </argument>
         </column>
-        <actionsColumn name="actions" class="Magento\Cms\Ui\Component\Listing\Column\PageActions">
+        <actionsColumn name="actions" class="Experius\ShopLocator\Ui\Component\Listing\Column\ShopLocatorActions">
             <settings>
-                <indexField>page_id</indexField>
-                <resizeEnabled>false</resizeEnabled>
-                <resizeDefaultWidth>107</resizeDefaultWidth>
+                <indexField>entity_id</indexField>
             </settings>
         </actionsColumn>
     </columns>

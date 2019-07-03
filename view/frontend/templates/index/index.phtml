@@ -1,10 +1,4 @@
 <?php
     $shop = $this->getShopById(5);
-
-    $shopCollection = $this->getShopLocatorList($this->getSearchCriteria());
-
-    foreach ($shopCollection->getItems() as $shop){
-        var_dump($shop->getData());
-    };
-
+    var_dump($shop->getData());
 ?>

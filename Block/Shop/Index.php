@@ -1,10 +1,11 @@
 <?php
 
-namespace Experius\ShopLocator\Block\Index;
+namespace Experius\ShopLocator\Block\Shop;
+
+use Experius\ShopLocator\Api\ShopLocatorRepositoryInterface;
 
 class Index extends \Magento\Framework\View\Element\Template
 {
-
     protected $shopLocatorRepository;
 
     protected $searchCriteriaBuilder;
@@ -16,7 +17,7 @@ class Index extends \Magento\Framework\View\Element\Template
      * @param array $data
      */
     public function __construct(
-        \Experius\ShopLocator\Model\ShopLocatorRepository $shopLocatorRepository,
+        ShopLocatorRepositoryInterface $shopLocatorRepository,
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
         array $data = []
@@ -30,10 +31,8 @@ class Index extends \Magento\Framework\View\Element\Template
     {
         $searchCriteria = $this->searchCriteriaBuilder->addFilter('name', '%Experius%', 'like')->create();
 
-
         return $searchCriteria;
     }
-
 
     public function getShopById($entityId)
     {
