@@ -2,6 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
         <add id="Experius_ShopLocator::top_level" module="Experius_ShopLocator" resource="Magento_Backend::content" sortOrder="9999" title="Experius"/>
-        <add action="shoplocator/shop/index" id="Experius_ShopLocator::index" module="Experius_ShopLocator" parent="Experius::top_level" resource="Experius_ShopLocator::index_index" sortOrder="9999" title="Shop Locator - shops"/>
+        <add action="shoplocator/shop/index" id="Experius_ShopLocator::index" module="Experius_ShopLocator" parent="Experius_ShopLocator::top_level" resource="Experius_ShopLocator::index_index" sortOrder="9999" title="Shop Locator - shops"/>
+        <add action="shoplocator/shop/edit" id="Experius_ShopLocator::edit" module="Experius_ShopLocator" parent="Experius_ShopLocator::top_level" resource="Experius_ShopLocator::shop_form" sortOrder="9999" title="Shop Locator - Add new shop"/>
     </menu>
 </config>

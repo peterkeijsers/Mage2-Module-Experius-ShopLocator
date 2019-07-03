@@ -106,5 +106,12 @@
                 </item>
             </argument>
         </column>
+        <actionsColumn name="actions" class="Magento\Cms\Ui\Component\Listing\Column\PageActions">
+            <settings>
+                <indexField>page_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
     </columns>
 </listing>
