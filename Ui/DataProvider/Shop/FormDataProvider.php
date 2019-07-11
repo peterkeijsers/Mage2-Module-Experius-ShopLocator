@@ -47,10 +47,11 @@ class FormDataProvider extends AbstractDataProvider
      */
     public function getData()
     {
-        $data = parent::getData();
+        if (isset($this->loadedData)) {
+            return $this->loadedData;
+        }
 
         $items = $this->collection->getItems();
-        /** @var \Magento\Cms\Model\Block $block */
         foreach ($items as $item) {
             $this->loadedData[$item->getId()] = $item->getData();
         }
