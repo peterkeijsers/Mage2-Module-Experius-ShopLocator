@@ -3,9 +3,10 @@
 namespace Experius\ShopLocator\Controller\Adminhtml\Shop;
 
 use Experius\ShopLocator\Api\ShopLocatorRepositoryInterface;
-use Magento\Framework\App\Action\HttpGetActionInterface as HttpGetActionInterface;
+use Experius\ShopLocator\Model\ShopLocatorFactory;
+use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterface;
 
-class Save extends \Magento\Backend\App\Action implements HttpGetActionInterface
+class Save extends \Magento\Backend\App\Action implements HttpPostActionInterface
 {
     const ADMIN_RESOURCE = 'Experius_ShopLocator::shop_save';
 
@@ -17,48 +18,98 @@ class Save extends \Magento\Backend\App\Action implements HttpGetActionInterface
     protected $resultPageFactory;
 
     /**
-     *  @var \Experius\ShopLocator\Api\ShopLocatorRepositoryInterface
+     *  @var ShopLocatorRepositoryInterface
      */
     protected $shopLocatorRepository;
 
     /**
-     * Constructor
-     *
+     *  @var ShopLocatorFactory
+     */
+    protected $shopLocatorFactory;
+
+    /**
+     * Save constructor.
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
-     * @param \Experius\ShopLocator\Api\ShopLocatorRepositoryInterface $ShopLocatorRepository
+     * @param ShopLocatorRepositoryInterface $shopLocatorRepository
+     * @param ShopLocatorFactory $shopLocatorFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        ShopLocatorRepositoryInterface $shopLocatorRepository
+        ShopLocatorRepositoryInterface $shopLocatorRepository,
+        ShopLocatorFactory $shopLocatorFactory
     ) {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
         $this->shopLocatorRepository = $shopLocatorRepository;
+        $this->shopLocatorFactory = $shopLocatorFactory;
     }
 
     /**
-     * Execute view action
-     *
-     * @return \Magento\Framework\View\Result\Page|\Magento\Framework\Controller\Result\Redirect
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Redirect|\Magento\Framework\Controller\ResultInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function execute()
     {
-        $id = $this->getRequest()->getParam(self::PRIMARY_FIELD_NAME);
-        $shop = $this->shopLocatorRepository->getById($id);
+        $resultRedirect = $this->resultRedirectFactory->create();
+        $data = $this->getRequest()->getPostValue();
 
-        if(empty($id) || !isset($shop)){
-            $this->messageManager->addErrorMessage(__('This Shoplocator shop no longer exists.'));
-            /** \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
-            $resultRedirect = $this->resultRedirectFactory->create();
-            return $resultRedirect->setPath('*/*/');
+        if ($data) {
+            if (empty($data['entity_id'])) {
+                $data['entity_id'] = null;
+            }
+
+            $model = $this->shopLocatorFactory->create();
+
+            $id = $this->getRequest()->getParam('entity_id');
+            if ($id) {
+                try {
+                    $model = $this->shopLocatorRepository->getById($id);
+                } catch (LocalizedException $e) {
+                    $this->messageManager->addErrorMessage(__('This shop no longer exists.'));
+                    return $resultRedirect->setPath('*/*/');
+                }
+            }
+
+            $model->setData($data);
+
+            try {
+                $this->shopLocatorRepository->save($model);
+                $this->messageManager->addSuccessMessage(__('You saved the shop.'));
+                return $this->processShopReturn($model, $data, $resultRedirect);
+            } catch (LocalizedException $e) {
+                $this->messageManager->addErrorMessage($e->getMessage());
+            } catch (\Exception $e) {
+                $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the shop.'));
+            }
+
+            return $resultRedirect->setPath('*/*/edit', ['entity_id' => $id]);
         }
+        return $resultRedirect->setPath('*/*/');
+    }
 
-        $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()
-            ->prepend($shop->getId() ? $shop->getTitle() : __('New Shop'));
+    /**
+     * @param $model
+     * @param $data
+     * @param $resultRedirect
+     * @return mixed
+     */
+    private function processShopReturn($model, $data, $resultRedirect)
+    {
+        $redirect = $data['back'] ?? 'close';
 
-        return $resultPage;
+        if ($redirect ==='continue') {
+            $resultRedirect->setPath('*/*/edit', ['entity_id' => $model->getId()]);
+        } else if ($redirect === 'close') {
+            $resultRedirect->setPath('*/*/');
+        } else if ($redirect === 'duplicate') {
+            $duplicateModel = $this->shopLocatorFactory->create(['data' => $data]);
+            $this->shopLocatorRepository->save($duplicateModel);
+            $id = $duplicateModel->getEntityId();
+            $this->messageManager->addSuccessMessage(__('You duplicated the shop.'));
+            $resultRedirect->setPath('*/*/edit', ['entity_id' => $id]);
+        }
+        return $resultRedirect;
     }
 }

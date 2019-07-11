@@ -7,7 +7,7 @@ use Magento\Framework\App\Action\HttpGetActionInterface as HttpGetActionInterfac
 
 class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
 {
-    const ADMIN_RESOURCE = 'Experius_ShopLocator::shop_save';
+    const ADMIN_RESOURCE = 'Experius_ShopLocator::shop_edit';
 
     const PRIMARY_FIELD_NAME = 'entity_id';
 

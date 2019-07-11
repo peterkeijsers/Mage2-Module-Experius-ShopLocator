@@ -85,17 +85,28 @@ class ShopLocatorRepository implements ShopLocatorRepositoryInterface
      */
     public function getList(\Magento\Framework\Api\SearchCriteriaInterface $criteria)
     {
-        /** @var \Magento\Cms\Model\ResourceModel\Page\Collection $collection */
         $collection = $this->shopLocatorCollectionFactory->create();
 
         $this->collectionProcessor->process($criteria, $collection);
 
-        /** @var Data\PageSearchResultsInterface $searchResults */
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
         $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
         return $searchResults;
+    }
+
+    public function save(\Experius\ShopLocator\Api\ShopLocatorInterface $shopLocator)
+    {
+        try {
+            $shopLocator->getResource()->save($shopLocator);
+        } catch (\Exception $exception) {
+            throw new CouldNotSaveException(
+                __('Could not save the shop: %1', $exception->getMessage()),
+                $exception
+            );
+        }
+        return $shopLocator;
     }
 
 }

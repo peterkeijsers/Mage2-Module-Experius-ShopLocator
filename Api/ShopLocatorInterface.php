@@ -36,4 +36,43 @@ interface ShopLocatorInterface
      */
     public function setName($name);
 
+    /**
+     * @return string|null
+     */
+    public function getLatitude();
+
+    /**
+     * Set latitude
+     *
+     * @param string $latitude
+     * @return \Experius\ShopLocator\Api\ShopLocatorInterface
+     */
+    public function setLatitude($latitude);
+
+    /**
+     * @return string|null
+     */
+    public function getLongitude();
+
+    /**
+     * Set longitude
+     *
+     * @param string $longitude
+     * @return \Experius\ShopLocator\Api\ShopLocatorInterface
+     */
+    public function setLongitude($longitude);
+
+    /**
+     * @return string|null
+     */
+    public function getShopHours();
+
+    /**
+     * Set shop_hours
+     *
+     * @param string $shopHours
+     * @return \Experius\ShopLocator\Api\ShopLocatorInterface
+     */
+    public function setShopHours($shopHours);
+
 }
