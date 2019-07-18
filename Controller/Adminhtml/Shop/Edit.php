@@ -46,18 +46,20 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
     public function execute()
     {
         $id = $this->getRequest()->getParam(self::PRIMARY_FIELD_NAME);
-        $shop = $this->shopLocatorRepository->getById($id);
+        if($id){
+            $shop = $this->shopLocatorRepository->getById($id);
 
-        if(empty($id) || !isset($shop)){
-            $this->messageManager->addErrorMessage(__('This Shoplocator shop no longer exists.'));
-            /** \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
-            $resultRedirect = $this->resultRedirectFactory->create();
-            return $resultRedirect->setPath('*/*/');
+            if(!$shop->getId()){
+                $this->messageManager->addErrorMessage(__('This Shoplocator shop no longer exists.'));
+                /** \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
+                $resultRedirect = $this->resultRedirectFactory->create();
+                return $resultRedirect->setPath('*/*/');
+            }
         }
 
         $resultPage = $this->resultPageFactory->create();
         $resultPage->getConfig()->getTitle()
-            ->prepend($shop->getId() ? $shop->getTitle() : __('New Shop'));
+            ->prepend( isset($shop) ? $shop->getTitle() : __('New Shop'));
 
         return $resultPage;
     }
