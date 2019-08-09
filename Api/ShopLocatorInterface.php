@@ -2,7 +2,7 @@
 
 namespace Experius\ShopLocator\Api;
 
-interface ShopLocatorInterface
+interface ShopLocatorInterface extends \Magento\Framework\Api\ExtensibleDataInterface
 {
     const ENTITY_ID = 'entity_id';
     const NAME = 'name';
@@ -74,5 +74,20 @@ interface ShopLocatorInterface
      * @return \Experius\ShopLocator\Api\ShopLocatorInterface
      */
     public function setShopHours($shopHours);
+
+    /**
+     * @inheritdoc
+     *
+     * @return \Experius\ShopLocator\Api\ShopLocatorExtensionInterface
+     */
+    public function getExtensionAttributes();
+
+    /**
+     * @inheritdoc
+     *
+     * @param \Experius\ShopLocator\Api\ShopLocatorExtensionInterface $extensionAttributes
+     * @return $this
+     */
+    public function setExtensionAttributes(\Experius\ShopLocator\Api\ShopLocatorExtensionInterface $extensionAttributes);
 
 }

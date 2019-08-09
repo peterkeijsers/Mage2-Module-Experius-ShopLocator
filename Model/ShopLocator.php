@@ -106,4 +106,27 @@ class ShopLocator extends \Magento\Framework\Model\AbstractExtensibleModel imple
     {
         return $this->setData(self::SHOP_HOURS, $shopHours);
     }
+
+    /**
+     * @inheritdoc
+     *
+     * @return \Experius\ShopLocator\Api\ShopLocatorExtensionInterface
+     */
+    public function getExtensionAttributes()
+    {
+        return $this->_getExtensionAttributes();
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param \Experius\ShopLocator\Api\ShopLocatorExtensionInterface $extensionAttributes
+     * @return $this
+     */
+    public function setExtensionAttributes(\Experius\ShopLocator\Api\ShopLocatorExtensionInterface $extensionAttributes)
+    {
+        return $this->_setExtensionAttributes($extensionAttributes);
+    }
+
+
 }

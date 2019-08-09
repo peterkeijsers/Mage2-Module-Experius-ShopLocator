@@ -20,7 +20,7 @@
             </item>
             <item name="delete" xsi:type="array">
                 <item name="label" xsi:type="string" translate="false">Delete</item>
-                <item name="url" xsi:type="url" path="*/*/delete"/>
+                <item name="url" xsi:type="url" path="*/delete"/>
                 <item name="name" xsi:type="string">delete</item>
             </item>
             <item name="back" xsi:type="array">
@@ -76,6 +76,7 @@
                     <item name="dataScope" xsi:type="string">name</item>
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">shoplocator</item>
+                    <item name="required" xsi:type="boolean">true</item>
                 </item>
             </argument>
         </field>

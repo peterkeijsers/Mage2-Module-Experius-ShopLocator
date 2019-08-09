@@ -13,11 +13,6 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
     const PRIMARY_FIELD_NAME = 'entity_id';
 
     /**
-     * @var \Magento\Framework\View\Result\Page
-     */
-    protected $resultPageFactory;
-
-    /**
      *  @var ShopLocatorRepositoryInterface
      */
     protected $shopLocatorRepository;
@@ -30,18 +25,15 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
     /**
      * Save constructor.
      * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param ShopLocatorRepositoryInterface $shopLocatorRepository
      * @param ShopLocatorFactory $shopLocatorFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         ShopLocatorRepositoryInterface $shopLocatorRepository,
         ShopLocatorFactory $shopLocatorFactory
     ) {
         parent::__construct($context);
-        $this->resultPageFactory = $resultPageFactory;
         $this->shopLocatorRepository = $shopLocatorRepository;
         $this->shopLocatorFactory = $shopLocatorFactory;
     }
@@ -56,13 +48,13 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
         $data = $this->getRequest()->getPostValue();
 
         if ($data) {
-            if (empty($data['entity_id'])) {
-                $data['entity_id'] = null;
+            if (empty($data[self::PRIMARY_FIELD_NAME])) {
+                $data[self::PRIMARY_FIELD_NAME] = null;
             }
 
             $model = $this->shopLocatorFactory->create();
 
-            $id = $this->getRequest()->getParam('entity_id');
+            $id = $this->getRequest()->getParam(self::PRIMARY_FIELD_NAME);
             if ($id) {
                 try {
                     $model = $this->shopLocatorRepository->getById($id);
@@ -84,7 +76,7 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
                 $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the shop.'));
             }
 
-            return $resultRedirect->setPath('*/*/edit', ['entity_id' => $id]);
+            return $resultRedirect->setPath('*/*/edit', [self::PRIMARY_FIELD_NAME => $id]);
         }
         return $resultRedirect->setPath('*/*/');
     }
@@ -100,7 +92,7 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
         $redirect = $data['back'] ?? 'close';
 
         if ($redirect ==='continue') {
-            $resultRedirect->setPath('*/*/edit', ['entity_id' => $model->getId()]);
+            $resultRedirect->setPath('*/*/edit', [self::PRIMARY_FIELD_NAME => $model->getId()]);
         } else if ($redirect === 'close') {
             $resultRedirect->setPath('*/*/');
         } else if ($redirect === 'duplicate') {
@@ -108,7 +100,7 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
             $this->shopLocatorRepository->save($duplicateModel);
             $id = $duplicateModel->getEntityId();
             $this->messageManager->addSuccessMessage(__('You duplicated the shop.'));
-            $resultRedirect->setPath('*/*/edit', ['entity_id' => $id]);
+            $resultRedirect->setPath('*/*/edit', [self::PRIMARY_FIELD_NAME => $id]);
         }
         return $resultRedirect;
     }
