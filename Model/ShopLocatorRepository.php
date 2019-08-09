@@ -4,9 +4,11 @@
 namespace Experius\ShopLocator\Model;
 
 use Experius\ShopLocator\Api\ShopLocatorRepositoryInterface;
+use Experius\ShopLocator\Api\ShopLocatorInterface;
 use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\SearchResultsInterfaceFactory;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\CouldNotSaveException;
@@ -52,7 +54,8 @@ class ShopLocatorRepository implements ShopLocatorRepositoryInterface
         DataObjectProcessor $dataObjectProcessor,
         SearchResultsInterfaceFactory $searchResultsFactory,
         StoreManagerInterface $storeManager,
-        CollectionProcessorInterface $collectionProcessor
+        CollectionProcessorInterface $collectionProcessor,
+        JoinProcessorInterface $extensionAttributesJoinProcessor
     )
     {
         $this->resource = $resource;
@@ -63,6 +66,7 @@ class ShopLocatorRepository implements ShopLocatorRepositoryInterface
         $this->searchResultsFactory = $searchResultsFactory;
         $this->storeManager = $storeManager;
         $this->collectionProcessor = $collectionProcessor;
+        $this->extensionAttributesJoinProcessor = $extensionAttributesJoinProcessor;
     }
 
     /**
@@ -87,6 +91,7 @@ class ShopLocatorRepository implements ShopLocatorRepositoryInterface
     {
         $collection = $this->shopLocatorCollectionFactory->create();
 
+        $this->extensionAttributesJoinProcessor->process($collection, ShopLocatorInterface::class);
         $this->collectionProcessor->process($criteria, $collection);
 
         $searchResults = $this->searchResultsFactory->create();
