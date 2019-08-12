@@ -17,16 +17,16 @@ interface ShopLocatorRepositoryInterface
     public function getById($entityId);
 
     /**
-     * @param \Experius\ShopLocator\Api\ShopLocatorInterface $ShopLocator
+     * @param \Experius\ShopLocator\Api\ShopLocatorInterface $shopLocator
      * @return \Experius\ShopLocator\Api\ShopLocatorInterface
      */
-    public function save(ShopLocatorInterface $ShopLocator);
+    public function save(ShopLocatorInterface $shopLocator);
 
     /**
-     * @param \Experius\ShopLocator\Api\ShopLocatorInterface $ShopLocator
+     * @param \Experius\ShopLocator\Api\ShopLocatorInterface $shopLocator
      * @return void
      */
-    public function delete(ShopLocatorInterface $ShopLocator);
+    public function delete(ShopLocatorInterface $shopLocator);
 
 
     /**

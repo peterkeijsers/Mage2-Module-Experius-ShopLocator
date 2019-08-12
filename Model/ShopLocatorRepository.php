@@ -118,8 +118,8 @@ class ShopLocatorRepository implements ShopLocatorRepositoryInterface
      * @param \Experius\ShopLocator\Api\ShopLocatorInterface $ShopLocator
      * @return mixed
      */
-    public function delete(ShopLocatorInterface $ShopLocator)
+    public function delete(ShopLocatorInterface $shopLocator)
     {
-        // TODO: Implement delete() method.
+        $shopLocator->getResource()->delete($shopLocator);
     }
 }
