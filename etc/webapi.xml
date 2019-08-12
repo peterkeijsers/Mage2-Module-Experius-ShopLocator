@@ -13,4 +13,33 @@
             <resource ref="anonymous" />
         </resources>
     </route>
+
+    <route url="/V1/shoplocator" method="GET">
+        <service class="Experius\ShopLocator\Api\ShopLocatorRepositoryInterface" method="getList" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/shoplocator" method="POST">
+        <service class="Experius\ShopLocator\Api\ShopLocatorRepositoryInterface" method="save" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/shoplocator" method="PUT">
+        <service class="Experius\ShopLocator\Api\ShopLocatorRepositoryInterface" method="save" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/shoplocator" method="DELETE">
+        <service class="Experius\ShopLocator\Api\ShopLocatorRepositoryInterface" method="delete" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
 </routes>
